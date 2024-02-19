@@ -1,9 +1,7 @@
 const express = require('express'),
-	//https = require('https'),
-	//fs = require('fs'),
 	app = express(),
 	server = require('http').createServer(app),
-	socket = require('socket.io'),
+	io = require('socket.io')(server),
 	PORT = process.env.PORT || 3000
 
 // Define Express GET paths
@@ -11,21 +9,9 @@ app.get('/room', (req, res) => {
 	res.sendFile(__dirname + "/public/room.html")
 })
 
-// Create HTTPS server
-/*
-const options = {
-	pfx: fs.readFileSync('Droptable.pfx'),
-	passphrase: '123456',
-}
-const server = https.createServer(options, app, (req, res) => {
-	res.writeHead(200)
-	res.end('hello world\n')
-})
-*/
 
-// Create socket server
+// Define Socket.IO functions
 const rooms = {} // key = roomID, value = socketID of creator; rooms are destroyed once a client joins
-const io = socket(server)
 
 io.on('connection', socket => {
 	socket.on('create room', (roomID) => {
