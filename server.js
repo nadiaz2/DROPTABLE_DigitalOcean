@@ -1,17 +1,18 @@
 const express = require('express'),
-	https = require('https'),
-	fs = require('fs'),
+	//https = require('https'),
+	//fs = require('fs'),
 	app = express(),
+	server = require('http').createServer(app),
 	socket = require('socket.io'),
-	PORT = 8000
+	PORT = process.env.PORT || 3000
 
 // Define Express GET paths
-app.use(express.static('public'))
 app.get('/room', (req, res) => {
 	res.sendFile(__dirname + "/public/room.html")
 })
 
 // Create HTTPS server
+/*
 const options = {
 	pfx: fs.readFileSync('Droptable.pfx'),
 	passphrase: '123456',
@@ -20,6 +21,7 @@ const server = https.createServer(options, app, (req, res) => {
 	res.writeHead(200)
 	res.end('hello world\n')
 })
+*/
 
 // Create socket server
 const rooms = {} // key = roomID, value = socketID of creator; rooms are destroyed once a client joins
@@ -65,7 +67,7 @@ io.on('connection', socket => {
 	console.log(`Socket ${socket.id} connected`)
 })
 
-// Start HTTPS server with Socket.IO and Express attached
+// Start HTTP server with Socket.IO and Express attached
 server.listen(PORT, () => {
 	console.log(`server is running on port ${PORT}`)
 })
