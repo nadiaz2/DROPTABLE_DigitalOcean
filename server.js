@@ -5,10 +5,14 @@ const express = require('express'),
 	PORT = process.env.PORT || 3000
 
 // Define Express GET paths
+app.get('/', (req, res) => {
+	res.sendFile(__dirname + "/temp.html")
+})
+/*
 app.get('/room', (req, res) => {
 	res.sendFile(__dirname + "/public/room.html")
 })
-
+*/
 
 // Define Socket.IO functions
 const rooms = {} // key = roomID, value = socketID of creator; rooms are destroyed once a client joins
