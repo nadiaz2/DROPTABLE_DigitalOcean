@@ -1,22 +1,29 @@
 const express = require('express'),
+	https = require('https'),
+	fs = require('fs'),
 	app = express(),
-	server = require('http').createServer(app),
-	io = require('socket.io')(server),
-	PORT = process.env.PORT || 3000
-
-app.use(express.static('HTTP_Vue'))
+	socket = require('socket.io'),
+	PORT = 8000
 
 // Define Express GET paths
-app.get('/', (req, res) => {
-	res.sendFile(__dirname + "/temp.html")
-})
+app.use(express.static('public'))
 app.get('/room', (req, res) => {
-	res.sendFile(__dirname + "/HTTP_Vue/index.html")
+	res.sendFile(__dirname + "/public/room.html")
 })
 
+// Create HTTPS server
+const options = {
+	pfx: fs.readFileSync('Droptable.pfx'),
+	passphrase: '123456',
+}
+const server = https.createServer(options, app, (req, res) => {
+	res.writeHead(200)
+	res.end('hello world\n')
+})
 
-// Define Socket.IO functions
+// Create socket server
 const rooms = {} // key = roomID, value = socketID of creator; rooms are destroyed once a client joins
+const io = socket(server)
 
 io.on('connection', socket => {
 	socket.on('create room', (roomID) => {
@@ -58,7 +65,7 @@ io.on('connection', socket => {
 	console.log(`Socket ${socket.id} connected`)
 })
 
-// Start HTTP server with Socket.IO and Express attached
+// Start HTTPS server with Socket.IO and Express attached
 server.listen(PORT, () => {
 	console.log(`server is running on port ${PORT}`)
 })
