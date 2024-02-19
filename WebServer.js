@@ -8,7 +8,7 @@ app.use(express.static('HTTP_Vue'))
 
 // Define Express GET paths
 app.get('/', (req, res) => {
-	res.sendFile(__dirname + "/temp.html")
+	res.statusCode(404)
 })
 app.get('/room', (req, res) => {
 	res.sendFile(__dirname + "/HTTP_Vue/index.html")
