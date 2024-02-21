@@ -4,14 +4,14 @@ const express = require('express'),
 	io = require('socket.io')(server),
 	PORT = process.env.PORT || 3000
 
-app.use(express.static('HTTP_Vue'))
+app.use(express.static('dist'))
 
 // Define Express GET paths
 app.get('/', (req, res) => {
-	res.statusCode(404)
+	res.sendStatus(404)
 })
 app.get('/room', (req, res) => {
-	res.sendFile(__dirname + "/HTTP_Vue/index.html")
+	res.sendFile(__dirname + "/dist/index.html")
 })
 
 
