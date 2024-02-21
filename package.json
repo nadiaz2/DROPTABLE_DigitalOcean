@@ -4,6 +4,7 @@
     "private": true,
     "scripts": {
         "start": "node WebServer.js",
+        "build:digitalocean": "npm install --production=false && npm run build && npm ci",
         "dev": "vite",
         "build": "vite build",
         "preview": "vite preview",

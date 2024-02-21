@@ -1,22 +1,25 @@
-
 let _peer
 let _channel
-export function getUnityConnection() {
-	return _channel
+let connection = {
+	onUnityMessage: undefined,
+	send: function (message) {
+		_channel.send(message)
+	}
 }
+export default connection
 
 // Create Socket.IO connection for WebRTC handshake
 const socket = io()
 socket.on('answer', handleAnswer)
-socket.on('failed join room', function(reason) {
+socket.on('failed join room', function (reason) {
 	// reason is only 'Open room does not exists.'
 	// TODO: redirect to or display error
 })
-socket.on('ice-candidate', function(incoming) {
+socket.on('ice-candidate', function (incoming) {
 	const candidate = new RTCIceCandidate(incoming)
 	_peer.addIceCandidate(candidate).catch(e => console.log(e))
 })
-socket.on('other user', function(peerID) {
+socket.on('other user', function (peerID) {
 	createPeer(peerID)
 
 	// creates an RTCDataChannel object with the arbitrary ID 'messaging'
@@ -54,7 +57,7 @@ function createPeer(peerID) {
 
 function handleICECandidateEvent(e, peerID) {
 	console.log('recieve ICE candidate')
-	if(e.candidate) {
+	if (e.candidate) {
 		const payload = {
 			target: peerID,
 			candidate: e.candidate
@@ -77,16 +80,23 @@ function handleNegotiationNeededEvent(peerID) {
 	}).catch(e => console.log(e))
 }
 
-// Receive from Unity
+
 // RTCDataChannel event handlers
 function handleChannelMessage(event) {
 	console.log(event.data)
+	_channel.send(event.data) // echo messages
+
+	if (typeof (connection.onUnityMessage) == 'function') {
+		connection.onUnityMessage(event.data)
+	}
 }
 
 function handleChannelOpen(event) {
-	_channel.send('hello!')
+	//_channel.send('hello!')
+	console.log("opened")
 }
 
 function handleChannelClose(event) {
-
+	console.log("closed")
+	//document.body.appendChild(document.createTextNode("closed"))
 }
