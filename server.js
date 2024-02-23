@@ -26,12 +26,12 @@ app.get('/room', (req, res) => {
 
 app.use(express.static('dist'))
 */
-app.use('dist')
+app.use(express.static('dist'))
 app.use(history({
   disableDotRule: true,
   verbose: true
 }))
-app.use('dist')
+app.use(express.static('dist'))
 
 // Define Socket.IO functions
 const rooms = {} // key = roomID, value = socketID of creator; rooms are destroyed once a client joins
