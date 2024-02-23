@@ -32,9 +32,15 @@ socket.on('other user', function (peerID) {
 })
 
 // Begins Connection
-let params = new URLSearchParams(location.search)
-socket.emit('join room', params.get('id'))
-console.log(params.get('id'))
+const params = new URLSearchParams(location.search)
+const roomID = params.get('id') || sessionStorage.getItem('roomID')
+
+socket.emit('join room', roomID)
+console.log(roomID)
+
+window.onbeforeunload = function (e) {
+	sessionStorage.setItem('roomID', roomID)
+}
 
 
 function handleAnswer(message) {
