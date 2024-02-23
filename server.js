@@ -5,17 +5,13 @@ const express = require('express'),
 	io = require('socket.io')(server),
 	PORT = process.env.PORT || 3000
 
-	/*
+
+
+// Define Express GET paths
 app.get('*', (req, res, next) => {
 	console.log(req.originalUrl)
 	next()
 })
-
-// Define Express GET paths
-app.get('/', (req, res) => {
-	res.send('Hello from Node.js!')
-})
-/*
 app.get('/', (req, res) => {
   console.log('404')
   res.sendStatus(404)
@@ -27,13 +23,6 @@ app.get('/room', (req, res) => {
 
 app.use(express.static('dist'))
 
-app.use(express.static('dist'))
-app.use(history({
-  disableDotRule: true,
-  verbose: true
-}))
-app.use(express.static('dist'))
-*/
 
 // Define Socket.IO functions
 const rooms = {} // key = roomID, value = socketID of creator; rooms are destroyed once a client joins
