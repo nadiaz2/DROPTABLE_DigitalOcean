@@ -1,6 +1,7 @@
 import { RouterLink, RouterView } from 'vue-router'
 
 <template>
+  <v-text-field>fahjsbfjhqbfbchuebsebfiuerbfwjfjdsfbewmhbrdhwrhjerbh</v-text-field>
   <transition name="fade" mode="out-in">
     <RouterView :key="$route.fullPath" />
 
