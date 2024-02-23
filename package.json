@@ -3,7 +3,7 @@
     "version": "0.0.0",
     "private": true,
     "scripts": {
-        "start": "node test_server.js",
+        "start": "node server.js",
         "build:digitalocean": "npm install --production=false && npm run build && npm ci",
         "dev": "vite Vue",
         "build": "vite build Vue",
