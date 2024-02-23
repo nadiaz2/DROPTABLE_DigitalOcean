@@ -8,10 +8,12 @@ app.use(express.static('dist'))
 
 // Define Express GET paths
 app.get('/', (req, res) => {
-	res.sendStatus(404)
+  console.log('404')
+  res.sendStatus(404)
 })
 app.get('/room', (req, res) => {
-	res.sendFile(__dirname + "/dist/index.html")
+  console.log('approve')
+  res.sendFile(__dirname + "/dist/index.html")
 })
 
 
