@@ -1,7 +1,7 @@
 const express = require('express'),
 	app = express(),
 	server = require('http').createServer(app),
-	history = require('connect-history-api-fallback'),
+	ViteExpress = require('vite-express'),
 	io = require('socket.io')(server),
 	PORT = process.env.PORT || 3000
 
@@ -11,7 +11,7 @@ const express = require('express'),
 app.get('*', (req, res, next) => {
 	console.log(req.originalUrl)
 	next()
-})
+})/*
 app.get('/', (req, res) => {
   console.log('404')
   res.sendStatus(404)
@@ -22,7 +22,7 @@ app.get('/room', (req, res) => {
 })
 
 app.use(express.static('dist'))
-
+*/
 
 // Define Socket.IO functions
 const rooms = {} // key = roomID, value = socketID of creator; rooms are destroyed once a client joins
@@ -71,3 +71,5 @@ io.on('connection', socket => {
 server.listen(PORT, () => {
 	console.log(`Express server is running on port ${PORT}`)
 })
+ViteExpress.config({ mode: "production" })
+ViteExpress.bind(app, server)
