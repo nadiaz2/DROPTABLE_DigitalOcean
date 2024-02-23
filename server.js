@@ -1,7 +1,7 @@
 const express = require('express'),
 	app = express(),
 	server = require('http').createServer(app),
-	ViteExpress = require('vite-express'),
+	//ViteExpress = require('vite-express'),
 	io = require('socket.io')(server),
 	PORT = process.env.PORT || 3000
 
@@ -71,5 +71,5 @@ io.on('connection', socket => {
 server.listen(PORT, () => {
 	console.log(`Express server is running on port ${PORT}`)
 })
-ViteExpress.config({ mode: "production" })
-ViteExpress.bind(app, server)
+//ViteExpress.config({ mode: "production" })
+//ViteExpress.bind(app, server)
