@@ -4,7 +4,6 @@ const express = require('express'),
 	io = require('socket.io')(server),
 	PORT = process.env.PORT || 3000
 
-app.use(express.static('dist'))
 
 // Define Express GET paths
 app.get('/', (req, res) => {
@@ -15,6 +14,8 @@ app.get('/room', (req, res) => {
   console.log('approve')
   res.sendFile(__dirname + "/dist/index.html")
 })
+
+app.use(express.static('dist'))
 
 
 // Define Socket.IO functions
