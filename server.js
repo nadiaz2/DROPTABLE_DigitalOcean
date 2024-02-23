@@ -11,6 +11,10 @@ app.get('*', (req, res, next) => {
 
 // Define Express GET paths
 app.get('/', (req, res) => {
+	res.send('Hello from Node.js!')
+})
+/*
+app.get('/', (req, res) => {
   console.log('404')
   res.sendStatus(404)
 })
@@ -20,7 +24,7 @@ app.get('/room', (req, res) => {
 })
 
 app.use(express.static('dist'))
-
+*/
 
 // Define Socket.IO functions
 const rooms = {} // key = roomID, value = socketID of creator; rooms are destroyed once a client joins
@@ -33,7 +37,7 @@ io.on('connection', socket => {
 
 	socket.on('join room', roomID => {
 		// room does not exist
-		if(!(rooms[roomID])) {
+		if (!(rooms[roomID])) {
 			socket.emit('failed join room', 'Open room does not exists.')
 			return
 		}
@@ -67,5 +71,5 @@ io.on('connection', socket => {
 
 // Start HTTP server with Socket.IO and Express attached
 server.listen(PORT, () => {
-	console.log(`server is running on port ${PORT}`)
+	console.log(`Express server is running on port ${PORT}`)
 })
