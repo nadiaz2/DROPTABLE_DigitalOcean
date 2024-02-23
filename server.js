@@ -5,6 +5,7 @@ const express = require('express'),
 	io = require('socket.io')(server),
 	PORT = process.env.PORT || 3000
 
+	/*
 app.get('*', (req, res, next) => {
 	console.log(req.originalUrl)
 	next()
@@ -25,13 +26,14 @@ app.get('/room', (req, res) => {
 })
 
 app.use(express.static('dist'))
-*/
+
 app.use(express.static('dist'))
 app.use(history({
   disableDotRule: true,
   verbose: true
 }))
 app.use(express.static('dist'))
+*/
 
 // Define Socket.IO functions
 const rooms = {} // key = roomID, value = socketID of creator; rooms are destroyed once a client joins
