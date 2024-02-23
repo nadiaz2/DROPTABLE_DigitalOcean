@@ -11,7 +11,7 @@ const express = require('express'),
 app.get('*', (req, res, next) => {
 	console.log(req.originalUrl)
 	next()
-})/*
+})
 app.get('/', (req, res) => {
   console.log('404')
   res.sendStatus(404)
@@ -21,8 +21,8 @@ app.get('/room', (req, res) => {
   res.sendFile(__dirname + "/dist/index.html")
 })
 
-app.use(express.static('dist'))
-*/
+//app.use(express.static('dist'))
+
 
 // Define Socket.IO functions
 const rooms = {} // key = roomID, value = socketID of creator; rooms are destroyed once a client joins

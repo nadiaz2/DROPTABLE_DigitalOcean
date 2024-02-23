@@ -34,6 +34,7 @@ socket.on('other user', function (peerID) {
 // Begins Connection
 let params = new URLSearchParams(location.search)
 socket.emit('join room', params.get('id'))
+console.log(params.get('id'))
 
 
 function handleAnswer(message) {
