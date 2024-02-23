@@ -4,6 +4,10 @@ const express = require('express'),
 	io = require('socket.io')(server),
 	PORT = process.env.PORT || 3000
 
+app.get('*', (req, res, next) => {
+	console.log(req.originalUrl)
+	next()
+})
 
 // Define Express GET paths
 app.get('/', (req, res) => {
