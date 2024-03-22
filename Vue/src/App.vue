@@ -1,15 +1,10 @@
 import { RouterLink, RouterView } from 'vue-router'
 
 <template>
-  <router-view v-slot="{ Component }">
-    <transition>
-      <component :is="Component" />
-    </transition>
-  </router-view>
-<!--  <transition name="fade" mode="out-in">-->
-<!--    <RouterView :key="$route.fullPath" />-->
+  <transition name="fade" mode="out-in">
+    <RouterView :key="$route.fullPath" />
 
-<!--  </transition>-->
+  </transition>
 </template>
 
 <script>

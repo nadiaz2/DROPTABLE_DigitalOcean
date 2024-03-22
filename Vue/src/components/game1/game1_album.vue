@@ -1,7 +1,5 @@
-
 <template>
   <v-app>
-
     <v-container>
       <v-app-bar elevation="0" aspect-ratio="1" class="bar">
         <v-btn @click="navigateToPage(route)">
@@ -13,26 +11,30 @@
     </v-container>
 
     <v-container class="photo">
-    <v-row>
-      <v-col cols="4" v-for="(item, index) in items" :key="index" class="no-padding">
-        <!-- Use a div as a clickable wrapper for the image -->
-        <div @click="sendMsg(item.Message)" class="image-container cursor-pointer">
-          <v-img :src="item.image" aspect-ratio="1" cover></v-img>
-        </div>
-      </v-col>
-    </v-row>
-  </v-container>
+      <v-row>
+        <v-col cols="4" v-for="(item, index) in items" :key="index" class="no-padding">
+          <div @click="showImage(item.image)" class="image-container cursor-pointer">
+            <v-img :src="item.image" aspect-ratio="1" cover></v-img>
+          </div>
+        </v-col>
+      </v-row>
+    </v-container>
+
+    <v-overlay :value="showOverlay" @click="showOverlay = false">
+      Overlay is active
+    </v-overlay>
   </v-app>
 </template>
 
 <script>
 
-import connection from "@/plugins/connection";
+import { getUnityConnection } from "@/plugins/connection";
 export default {
   name: 'game1_album',
   data() {
     return {
-
+      showOverlay: false,
+      selectedImage: '',
       route: 'game1_main',
       items: [
 
@@ -71,10 +73,21 @@ export default {
     navigateToPage(routeName) {
       this.$router.push({ name: routeName });
     },
-    sendMsg(message) {
-      connection.send(message);
-      console.log(message);
-    }
+    sendMsg(item) {
+      const channel = getUnityConnection();
+      if (channel) {
+        channel.send(item.Message);
+        console.log(`Message sent: ${item.Message}`);
+      } else {
+        console.log("No active connection found.");
+      }
+    },
+    showImage(imageUrl) {
+      this.selectedImage = imageUrl;
+      this.showOverlay = true;
+      console.log("Overlay should be shown:", this.showOverlay);
+
+    },
   }
 }
 </script>
