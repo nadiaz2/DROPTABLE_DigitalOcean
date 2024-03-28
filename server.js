@@ -56,8 +56,11 @@ io.on('connection', socket => {
 	})
 
 	socket.on('ice-candidate', incoming => {
-		io.to(incoming.target).emit('ice-candidate', incoming.candidate)
+		let target = incoming.target
+		delete incoming.target
+		io.to(target).emit('ice-candidate', incoming.candidate)
 		console.log(`Socket ${socket.id} sent ICE candidate to ${incoming.target}`)
+		console.log(`     ${incoming.candidate}`)
 	})
 
 	console.log(`Socket ${socket.id} connected`)

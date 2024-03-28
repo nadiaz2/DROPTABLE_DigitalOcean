@@ -1,24 +1,27 @@
+import { io } from 'https://cdn.socket.io/4.7.4/socket.io.esm.min.js';
 
 let _peer
 let _channel
-import { io } from 'https://cdn.socket.io/4.7.4/socket.io.esm.min.js';
-
-export function getUnityConnection() {
-	return _channel
+let connection = {
+	onUnityMessage: undefined,
+	send: function (message) {
+		_channel.send(message)
+	}
 }
+export default connection
 
 // Create Socket.IO connection for WebRTC handshake
 const socket = io()
 socket.on('answer', handleAnswer)
-socket.on('failed join room', function(reason) {
+socket.on('failed join room', function (reason) {
 	// reason is only 'Open room does not exists.'
 	// TODO: redirect to or display error
 })
-socket.on('ice-candidate', function(incoming) {
+socket.on('ice-candidate', function (incoming) {
 	const candidate = new RTCIceCandidate(incoming)
 	_peer.addIceCandidate(candidate).catch(e => console.log(e))
 })
-socket.on('other user', function(peerID) {
+socket.on('other user', function (peerID) {
 	createPeer(peerID)
 
 	// creates an RTCDataChannel object with the arbitrary ID 'messaging'
@@ -29,8 +32,15 @@ socket.on('other user', function(peerID) {
 })
 
 // Begins Connection
-let params = new URLSearchParams(location.search)
-socket.emit('join room', params.get('id'))
+const params = new URLSearchParams(location.search)
+const roomID = params.get('id') || sessionStorage.getItem('roomID')
+
+socket.emit('join room', roomID)
+console.log(roomID)
+
+window.onbeforeunload = function (e) {
+	sessionStorage.setItem('roomID', roomID)
+}
 
 
 function handleAnswer(message) {
@@ -56,10 +66,12 @@ function createPeer(peerID) {
 
 function handleICECandidateEvent(e, peerID) {
 	console.log('recieve ICE candidate')
-	if(e.candidate) {
+	if (e.candidate) {
 		const payload = {
 			target: peerID,
-			candidate: e.candidate
+			candidate: e.candidate,
+			sdpMid: e.sdpMid,
+			sdpMLineIndex: e.sdpMLineIndex
 		}
 		socket.emit('ice-candidate', payload)
 		console.log('send ICE candidate')
@@ -83,12 +95,16 @@ function handleNegotiationNeededEvent(peerID) {
 // RTCDataChannel event handlers
 function handleChannelMessage(event) {
 	console.log(event.data)
+
+	if (typeof (connection.onUnityMessage) == 'function') {
+		connection.onUnityMessage(event.data)
+	}
 }
 
 function handleChannelOpen(event) {
-	_channel.send('hello!')
+	console.log('WebRTC connection open')
 }
 
 function handleChannelClose(event) {
-
+	console.log('WebRTC connection open')
 }
