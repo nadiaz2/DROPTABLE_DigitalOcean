@@ -10,16 +10,6 @@ let connection = {
 }
 export default connection
 
-/******************************************************************
- * This WILL be removed.                                          *
- * Do not depend on this function.                                *
- * All code depending on this should change to use the above API. *
- * See ConnectionAPI document in the Drive for details.           *
- ******************************************************************/
-export function getUnityConnection() {
-	return _channel
-}
-/******************************************************************/
 
 // Create Socket.IO connection for WebRTC handshake
 const socket = io()
