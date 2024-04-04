@@ -5,7 +5,6 @@ const express = require('express'),
 	PORT = process.env.PORT || 3000
 
 
-
 // Define Express GET paths
 /*
 app.get('/', (req, res) => {
@@ -58,9 +57,9 @@ io.on('connection', socket => {
 	socket.on('ice-candidate', incoming => {
 		let target = incoming.target
 		delete incoming.target
-		io.to(target).emit('ice-candidate', incoming.candidate)
-		console.log(`Socket ${socket.id} sent ICE candidate to ${incoming.target}`)
-		console.log(`     ${incoming.candidate}`)
+		io.to(target).emit('ice-candidate', incoming)
+		console.log(`Socket ${socket.id} sent ICE candidate to ${target}`)
+		//console.log(`     ${incoming.candidate}`)
 	})
 
 	console.log(`Socket ${socket.id} connected`)
