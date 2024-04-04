@@ -59,7 +59,7 @@ io.on('connection', socket => {
 		delete incoming.target
 		io.to(target).emit('ice-candidate', incoming)
 		console.log(`Socket ${socket.id} sent ICE candidate to ${target}`)
-		//console.log(`     ${incoming.candidate}`)
+		console.log(`     ${JSON.stringify(incoming)}`)
 	})
 
 	console.log(`Socket ${socket.id} connected`)
