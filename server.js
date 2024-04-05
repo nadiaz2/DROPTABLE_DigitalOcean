@@ -46,6 +46,7 @@ io.on('connection', socket => {
 
 	socket.on('offer', payload => {
 		// values[0] = <target>, values[1] = <caller>, values[2] = <sdp>
+		console.log(`${typeof payload}: ${payload}`)
 		const values = payload.split("\n")
 		io.to(values[0]).emit('offer', payload)
 		console.log(`Socket ${values[1]} made offer to ${values[0]}`)
