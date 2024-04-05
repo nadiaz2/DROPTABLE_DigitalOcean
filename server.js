@@ -46,22 +46,22 @@ io.on('connection', socket => {
 
 	socket.on('offer', payload => {
 		// values[0] = <target>, values[1] = <caller>, values[2] = <sdp>
-		//console.log(`${typeof payload}: ${payload}`)
-		const values = payload.ToString().split("\n")
+		console.log(`${typeof payload}: ${JSON.stringify(payload)}`)
+		const values = payload.split("\n")
 		io.to(values[0]).emit('offer', payload)
 		console.log(`Socket ${values[1]} made offer to ${values[0]}`)
 	})
 
 	socket.on('answer', payload => {
 		// values[0] = <target>, values[1] = <caller>, values[2] = <sdp>
-		const values = payload.ToString().split("\n")
+		const values = payload.split("\n")
 		io.to(values[0]).emit('answer', payload)
 		console.log(`Socket ${values[1]} sent answer to ${values[0]}`)
 	})
 
 	socket.on('ice-candidate', incoming => {
 		// info[0] = <target>, info[1] = <values>
-		const info = incoming.ToString().split("\n\n")
+		const info = incoming.split("\n\n")
 
 		io.to(info[0]).emit('ice-candidate', info[1])
 		console.log(`Socket ${socket.id} sent ICE candidate to ${info[0]}`)
