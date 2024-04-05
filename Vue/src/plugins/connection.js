@@ -55,9 +55,9 @@ window.onbeforeunload = function (e) {
 }
 
 
-function handleAnswer(message) {
+function handleAnswer(sdp) {
 	console.log('recieve answer')
-	const desc = new RTCSessionDescription(message.sdp)
+	const desc = new RTCSessionDescription(sdp)
 	_peer.setRemoteDescription(desc).catch(e => console.log(e))
 }
 
@@ -79,13 +79,14 @@ function createPeer(peerID) {
 function handleICECandidateEvent(e, peerID) {
 	console.log('recieve ICE candidate')
 	if (e.candidate) {
-		const payload = {
-			target: peerID,
-			candidate: e.candidate,
-			sdpMid: e.sdpMid,
-			sdpMLineIndex: e.sdpMLineIndex
-		}
-		socket.emit('ice-candidate', payload)
+		/* String in format
+		<target>
+		<candidate>
+		<sdpMid>
+		<sdpMLineIndex>
+		*/
+		const message = `${peerID}\n\n${e.candidate}\n${e.spdMid}\n${e.spdMLineIndex}`
+		socket.emit('ice-candidate', message)
 		console.log('send ICE candidate')
 	}
 }
@@ -94,12 +95,13 @@ function handleNegotiationNeededEvent(peerID) {
 	_peer.createOffer().then(offer => {
 		return _peer.setLocalDescription(offer)
 	}).then(() => {
-		const payload = {
-			target: peerID,
-			caller: socket.id,
-			sdp: _peer.localDescription
-		}
-		socket.emit('offer', payload)
+		/* String in format
+		<target>
+		<caller>
+		<spd>
+		*/
+		const message = `${peerID}\n${socket.id}\n${_peer.localDescription.sdp}`
+		socket.emit('offer', message)
 	}).catch(e => console.log(e))
 }
 

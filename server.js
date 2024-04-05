@@ -45,21 +45,26 @@ io.on('connection', socket => {
 	})
 
 	socket.on('offer', payload => {
-		io.to(payload.target).emit('offer', payload)
-		console.log(`Socket ${payload.caller} made offer to ${payload.target}`)
+		// values[0] = <target>, values[1] = <caller>, values[2] = <sdp>
+		const values = payload.split("\n")
+		io.to(values[0]).emit('offer', payload)
+		console.log(`Socket ${values[1]} made offer to ${values[0]}`)
 	})
 
 	socket.on('answer', payload => {
-		io.to(payload.target).emit('answer', payload)
-		console.log(`Socket ${payload.caller} sent answer to ${payload.target}`)
+		// values[0] = <target>, values[1] = <caller>, values[2] = <sdp>
+		const values = payload.split("\n")
+		io.to(values[0]).emit('answer', payload)
+		console.log(`Socket ${values[1]} sent answer to ${values[0]}`)
 	})
 
 	socket.on('ice-candidate', incoming => {
-		let target = incoming.target
-		delete incoming.target
-		io.to(target).emit('ice-candidate', incoming)
-		console.log(`Socket ${socket.id} sent ICE candidate to ${target}`)
-		console.log(`     ${JSON.stringify(incoming)}`)
+		// info[0] = <target>, info[1] = <values>
+		const info = payload.split("\n\n")
+
+		io.to(info[0]).emit('ice-candidate', info[1])
+		console.log(`Socket ${socket.id} sent ICE candidate to ${info[0]}`)
+		console.log(`     ${info[1]}`)
 	})
 
 	console.log(`Socket ${socket.id} connected`)
