@@ -28,7 +28,7 @@
 
 <script>
 
-import { getUnityConnection } from "@/plugins/connection";
+import { connection } from "@/plugins/connection";
 export default {
   name: 'game1_album',
   data() {
@@ -74,13 +74,7 @@ export default {
       this.$router.push({ name: routeName });
     },
     sendMsg(item) {
-      const channel = getUnityConnection();
-      if (channel) {
-        channel.send(item.Message);
-        console.log(`Message sent: ${item.Message}`);
-      } else {
-        console.log("No active connection found.");
-      }
+      connection.send(item)
     },
     showImage(imageUrl) {
       this.selectedImage = imageUrl;
