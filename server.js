@@ -4,6 +4,7 @@ const express = require('express'),
 	io = require('socket.io')(server),
 	PORT = process.env.PORT || 3000
 
+const fs = require('fs');
 fs.readdirSync('./').forEach(file => {
 	console.log(file);
 });
