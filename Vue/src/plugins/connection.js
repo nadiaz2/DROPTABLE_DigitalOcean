@@ -10,6 +10,7 @@ let connection = {
 }
 export default connection
 
+const sep = String.fromCharCode(29) // group seperator char in ASCII
 /******************************************************************
  * This WILL be removed.                                          *
  * Do not depend on this function.                                *
@@ -87,7 +88,7 @@ function handleICECandidateEvent(e, peerID) {
 		<sdpMid>
 		<sdpMLineIndex>
 		*/
-		const message = `${peerID}\n\n${e.candidate}\n${e.spdMid}\n${e.spdMLineIndex}`
+		const message = `${peerID}${sep}${sep}${e.candidate}${sep}${e.spdMid}${sep}${e.spdMLineIndex}`
 		socket.emit('ice-candidate', message)
 		console.log('send ICE candidate')
 	}
@@ -102,7 +103,7 @@ function handleNegotiationNeededEvent(peerID) {
 		<caller>
 		<spd>
 		*/
-		const message = `${peerID}\n${socket.id}\n${_peer.localDescription.sdp}`
+		const message = `${peerID}${sep}${socket.id}${sep}${_peer.localDescription.sdp}`
 		socket.emit('offer', message)
 	}).catch(e => console.log(e))
 }
