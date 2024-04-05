@@ -28,7 +28,7 @@
 
 <script>
 
-import { connection } from "@/plugins/connection";
+import connection from "@/plugins/connection";
 export default {
   name: 'game1_album',
   data() {
