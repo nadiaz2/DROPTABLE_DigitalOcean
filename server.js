@@ -60,7 +60,7 @@ io.on('connection', socket => {
 
 	socket.on('ice-candidate', incoming => {
 		// info[0] = <target>, info[1] = <values>
-		const info = payload.split("\n\n")
+		const info = incoming.split("\n\n")
 
 		io.to(info[0]).emit('ice-candidate', info[1])
 		console.log(`Socket ${socket.id} sent ICE candidate to ${info[0]}`)
