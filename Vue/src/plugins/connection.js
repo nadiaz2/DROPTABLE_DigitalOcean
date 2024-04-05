@@ -16,9 +16,11 @@ export default connection
  * All code depending on this should change to use the above API. *
  * See ConnectionAPI document in the Drive for details.           *
  ******************************************************************/
+/*
 export function getUnityConnection() {
 	return _channel
 }
+*/
 /******************************************************************/
 
 

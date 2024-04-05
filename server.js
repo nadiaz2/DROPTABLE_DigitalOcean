@@ -4,7 +4,9 @@ const express = require('express'),
 	io = require('socket.io')(server),
 	PORT = process.env.PORT || 3000
 
-
+fs.readdirSync('./').forEach(file => {
+	console.log(file);
+});
 // Define Express GET paths
 /*
 app.get('/', (req, res) => {
