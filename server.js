@@ -4,7 +4,7 @@ const express = require('express'),
 	io = require('socket.io')(server),
 	PORT = process.env.PORT || 3000
 
-const sep = String.fromCharCode(29) // group seperator char in ASCII
+const sep = "\n;\n"
 
 app.use(express.static('Vue/dist'))
 
@@ -36,7 +36,6 @@ io.on('connection', socket => {
 
 	socket.on('offer', payload => {
 		// values[0] = <target>, values[1] = <caller>, values[2] = <sdp>
-		console.log(`${typeof payload}: ${JSON.stringify(payload)}`)
 		const values = payload.split(sep)
 		io.to(values[0]).emit('offer', payload)
 		console.log(`Socket ${values[1]} made offer to ${values[0]}`)

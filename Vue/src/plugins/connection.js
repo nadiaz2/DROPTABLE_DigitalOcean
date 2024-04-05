@@ -10,7 +10,7 @@ let connection = {
 }
 export default connection
 
-const sep = String.fromCharCode(29) // group seperator char in ASCII
+const sep = "\n;\n"
 /******************************************************************
  * This WILL be removed.                                          *
  * Do not depend on this function.                                *
