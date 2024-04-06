@@ -79,16 +79,17 @@ function createPeer(peerID) {
 	return _peer
 }
 
-function handleICECandidateEvent(e, peerID) {
+function handleICECandidateEvent(event, peerID) {
 	console.log('recieve ICE candidate')
-	if (e.candidate) {
+	const iceCandidate = e.candidate
+	if (iceCandidate.candidate) {
 		/* String in format
 		<target>
 		<candidate>
 		<sdpMid>
 		<sdpMLineIndex>
 		*/
-		const message = `${peerID}${sep}${sep}${e.candidate}${sep}${e.spdMid}${sep}${e.spdMLineIndex}`
+		const message = `${peerID}${sep}${sep}${iceCandidate.candidate}${sep}${iceCandidate.spdMid}${sep}${iceCandidate.spdMLineIndex}`
 		socket.emit('ice-candidate', message)
 		console.log('send ICE candidate')
 	}
