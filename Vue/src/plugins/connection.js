@@ -11,19 +11,6 @@ let connection = {
 export default connection
 
 const sep = "\n;\n"
-/******************************************************************
- * This WILL be removed.                                          *
- * Do not depend on this function.                                *
- * All code depending on this should change to use the above API. *
- * See ConnectionAPI document in the Drive for details.           *
- ******************************************************************/
-/*
-export function getUnityConnection() {
-	return _channel
-}
-*/
-/******************************************************************/
-
 
 // Create Socket.IO connection for WebRTC handshake
 const socket = io()
@@ -117,6 +104,8 @@ function handleNegotiationNeededEvent(peerID) {
 // RTCDataChannel event handlers
 function handleChannelMessage(event) {
 	console.log(event.data)
+
+	_channel.send(`(ACK)${event.data}`)
 
 	if (typeof (connection.onUnityMessage) == 'function') {
 		connection.onUnityMessage(event.data)
