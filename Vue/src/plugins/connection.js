@@ -62,7 +62,7 @@ function handleAnswer(message) {
 	console.log('recieve answer')
 	const values = message.split(sep)
 	const init = {
-		type: values[0],
+		type: values[0].toLowerCase(),
 		sdp: values[1]
 	}
 	_peer.setRemoteDescription(init).catch(e => console.log(e))
