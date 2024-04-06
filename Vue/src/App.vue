@@ -1,10 +1,10 @@
 import { RouterLink, RouterView } from 'vue-router'
 
 <template>
-  <transition name="fade" mode="out-in">
+
     <RouterView :key="$route.fullPath" />
 
-  </transition>
+
 </template>
 
 <script>
