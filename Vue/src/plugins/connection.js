@@ -128,5 +128,5 @@ function handleChannelOpen(event) {
 }
 
 function handleChannelClose(event) {
-	console.log('WebRTC connection open')
+	console.log('WebRTC connection close')
 }
