@@ -58,12 +58,14 @@ window.onbeforeunload = function (e) {
 }
 
 
-function handleAnswer(sdp) {
+function handleAnswer(message) {
 	console.log('recieve answer')
-	console.log(sdp)
-	const desc = new RTCSessionDescription(sdp)
-	console.log(desc)
-	_peer.setRemoteDescription(desc).catch(e => console.log(e))
+	const values = message.split(sep)
+	const init = {
+		type: values[0],
+		sdp: values[1]
+	}
+	_peer.setRemoteDescription(init).catch(e => console.log(e))
 }
 
 
@@ -84,7 +86,7 @@ function createPeer(peerID) {
 function handleICECandidateEvent(event, peerID) {
 	console.log('recieve ICE candidate')
 	const iceCandidate = event.candidate
-	if (iceCandidate.candidate) {
+	if (iceCandidate) {
 		/* String in format
 		<target>
 		<candidate>
