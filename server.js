@@ -44,7 +44,7 @@ io.on('connection', socket => {
 	socket.on('answer', payload => {
 		// values[0] = <target>, values[1] = <caller>, values[2] = <sdp>
 		const values = payload.split(sep)
-		io.to(values[0]).emit('answer', payload)
+		io.to(values[0]).emit('answer', values[2])
 		console.log(`Socket ${values[1]} sent answer to ${values[0]}`)
 	})
 
