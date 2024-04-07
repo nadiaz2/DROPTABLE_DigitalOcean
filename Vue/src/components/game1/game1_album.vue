@@ -13,9 +13,9 @@
     <v-container class="photo">
       <v-row>
         <v-col cols="4" v-for="(item, index) in items" :key="index" class="no-padding">
-          <div @click="showImage(item.image)" class="image-container cursor-pointer">
-            <v-img :src="item.image" aspect-ratio="1" cover></v-img>
-          </div>
+          <div @click="showImage(item)" class="image-container cursor-pointer">
+  <v-img :src="item.image" aspect-ratio="1" cover></v-img>
+</div>
         </v-col>
       </v-row>
     </v-container>
@@ -76,12 +76,16 @@ export default {
     sendMsg(item) {
       connection.send(item)
     },
-    showImage(imageUrl) {
-      this.selectedImage = imageUrl;
-      this.showOverlay = true;
-      console.log("Overlay should be shown:", this.showOverlay);
+    showImage(item) {
+  this.selectedImage = item.image; // Set the selected image URL
+  this.showOverlay = true; // Show the overlay with the selected image
 
-    },
+  if (item.Message) { // Check if there's a message to send
+    this.sendMsg(item.Message); // Send the message associated with the image
+  }
+
+  console.log("Overlay should be shown:", this.showOverlay);
+},
   }
 }
 </script>
