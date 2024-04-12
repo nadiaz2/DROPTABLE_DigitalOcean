@@ -10,23 +10,31 @@ app.use(express.static('Vue/dist'))
 
 
 // Define Socket.IO functions
-const rooms = {} // key = roomID, value = socketID of creator; rooms are destroyed once a client joins
+const roomToUnity = {} // key = roomID, value = unity socket.id
+const unityToRoom = {} // key = unity socket.id, values = roomID
 
 io.on('connection', socket => {
+	socket.on('disconnect', function () {
+		roomID = unityToRoom[socket.id]
+		delete unityToRoom[socket.id]
+		delete roomToUnity[roomID]
+		console.log(`Socket ${socket.id} disconnected: deleteing room '${roomID}'`)
+	})
+
 	socket.on('create room', (roomID) => {
-		rooms[roomID] = socket.id
+		roomToUnity[roomID] = socket.id
+		unityToRoom[socket.id] = roomID
 		console.log(`Socket ${socket.id} created room ${roomID}`)
 	})
 
 	socket.on('join room', roomID => {
 		// room does not exist
-		if (!(rooms[roomID])) {
+		if (!(roomToUnity[roomID])) {
 			socket.emit('failed join room', 'Open room does not exists.')
 			return
 		}
 
-		const unityUser = rooms[roomID]
-		delete rooms[roomID]
+		const unityUser = roomToUnity[roomID]
 
 		socket.emit('other user', unityUser)
 		socket.to(unityUser).emit('user joined', socket.id)
