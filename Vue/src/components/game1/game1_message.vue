@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-toolbar color="deep-purple accent-3" dark>
-      <v-btn icon @click="navigateBack">
+      <v-btn icon @click="navigateToPage(route)">
         <v-icon>mdi-arrow-left</v-icon>
       </v-btn>
       <v-toolbar-title>Messages</v-toolbar-title>
@@ -33,8 +33,9 @@
 </template>
 
 <script>
-import { inject } from "vue";
+
 import connection from "@/plugins/connection";
+import { inject, onMounted, ref, watch } from 'vue';
 
 export default {
   setup() {
@@ -91,7 +92,15 @@ export default {
       }
     }
 
-    return { messages, handleMessageClick };
+    return { messages, handleMessageClick,route: 'game1_main'};
+  },
+  methods: {
+    flipListener(e) {
+      console.log(page);
+    },
+    navigateToPage(routeName) {
+      this.$router.push({ name: routeName });
+    }
   },
 };
 </script>
