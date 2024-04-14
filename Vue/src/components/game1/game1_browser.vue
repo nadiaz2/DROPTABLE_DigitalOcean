@@ -40,6 +40,7 @@ function until(conditionFunction) {
 
 <script>
 import connection from "@/plugins/connection";
+import { inject, onMounted, ref, watch } from 'vue';
 
 export default {
   name: "game1main",
