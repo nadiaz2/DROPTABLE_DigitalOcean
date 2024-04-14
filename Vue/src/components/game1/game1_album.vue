@@ -57,7 +57,6 @@ export default {
       this.$router.push({ name: routeName });
     }
 
-
     function sendMsg(item) {
       if (appState.value.status === "01-START" && item.Message) {
         console.log("Sending message...", item.Message);
@@ -77,14 +76,15 @@ export default {
 
     function startTimer() {
       setTimeout(() => {
-        connection.send("02-ALBUM");
-      }, 3000);
-    },
-  },
+        if (appState.value.status === "02-START") {
+          console.log("Timer complete, sending '02-ALBUM'");
+          connection.send("02-ALBUM");
+        }
+      }, 100000); // 100 seconds as originally intended
+    }
 
-  watch: {
-    // Watch for changes in appState and react accordingly
-    "appState.status"(newStatus) {
+    watch(() => appState.value.status, (newStatus) => {
+      console.log("Status changed to:", newStatus);
       if (newStatus === "01-FINISH") {
         items.value.forEach((item) => {
           if (item.Message === "01-FOUNDPHOTO") {
@@ -103,7 +103,6 @@ export default {
     });
 
     return {
-      route: 'game1_main',
       items,
       showOverlay,
       selectedImage,
@@ -115,6 +114,7 @@ export default {
   }
 };
 </script>
+
 
 
 <style scoped>
