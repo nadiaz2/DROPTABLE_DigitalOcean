@@ -58,7 +58,7 @@ export default {
     }
 
     function sendMsg(item) {
-      if (appState.value.status === "01-START" && item.Message) {
+      if (appState.status === "01-START" && item.Message) {
         console.log("Sending message...", item.Message);
         connection.send(item.Message);
         changeAppState("finished");
@@ -69,21 +69,21 @@ export default {
       selectedImage.value = item.image;
       showOverlay.value = true;
 
-      if (item.Message && appState.value.status === "01-START") {
+      if (item.Message && appState.status === "01-START") {
         sendMsg(item);
       }
     }
 
     function startTimer() {
       setTimeout(() => {
-        if (appState.value.status === "02-START") {
+        if (appState.status === "02-START") {
           console.log("Timer complete, sending '02-ALBUM'");
           connection.send("02-ALBUM");
         }
       }, 1000); // 1 second as originally intended
     }
 
-    watch(() => appState.value.status, (newStatus) => {
+    watch(() => appState.status, (newStatus) => {
       console.log("Status changed to:", newStatus);
       if (newStatus === "01-FINISH") {
         items.value.forEach((item) => {
@@ -97,7 +97,7 @@ export default {
     });
 
     onMounted(() => {
-      if (appState.value.status === "02-START") {
+      if (appState.status === "02-START") {
         startTimer();
       }
     });

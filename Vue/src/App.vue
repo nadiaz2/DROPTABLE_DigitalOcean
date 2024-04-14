@@ -18,10 +18,12 @@ import connection from "@/plugins/connection"; // Adjust path as necessary
 export default defineComponent({
   name: "App",
   setup() {
-    const appState = ref("idle");
+    const appState = reactive({
+      status: 'idle'
+    });
 
     function changeAppState(newState) {
-      appState.value.status = newState;  // Update the status property
+      appState.status = newState;  // Update the status property
       console.log(`State updated to: ${newState}`);
     }
 

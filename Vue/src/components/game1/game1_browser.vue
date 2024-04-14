@@ -45,7 +45,7 @@ export default {
   name: "game1main",
   created() {
     const appState = inject("appState");
-    if (appState.value.status === "02-START") {
+    if (appState.status === "02-START") {
       connection.send("02-BROWSER");
     }
 
