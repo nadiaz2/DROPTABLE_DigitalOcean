@@ -12,12 +12,7 @@
 
     <v-container class="photo">
       <v-row>
-        <v-col
-          v-for="(item, index) in items"
-          :key="index"
-          cols="4"
-          class="no-padding"
-        >
+        <v-col v-for="(item, index) in items" :key="index" cols="4" class="no-padding">
           <div @click="showImage(item)" class="image-container cursor-pointer">
             <v-img :src="item.image" aspect-ratio="1" cover></v-img>
           </div>
@@ -32,137 +27,55 @@
 </template>
 
 <script>
-import connection from "@/plugins/connection";
+import { inject, onMounted, ref, watch } from 'vue';
+import connection from "@/plugins/connection"; // Ensure this is the correct path
+
 export default {
   name: "game1_album",
-  props: ["appState", "changeAppState"],
 
-  data() {
-    return {
-      showOverlay: false,
-      selectedImage: "",
-      route: "game1_main",
-      items: [
-        {
-          Message: "",
-          image:
-            "https://cdn.photoswipe.com/photoswipe-demo-images/photos/2/img-2500.jpg",
-          sent: false,
-        },
-        {
-          Message: "01-FOUNDPHOTO",
-          image:
-            "https://cdn.photoswipe.com/photoswipe-demo-images/photos/1/img-2500.jpg",
-          sent: false,
-        },
-        {
-          Message: "",
-          image:
-            "https://cdn.photoswipe.com/photoswipe-demo-images/photos/2/img-2500.jpg",
-          sent: false,
-        },
-        {
-          Message: "",
-          image:
-            "https://cdn.photoswipe.com/photoswipe-demo-images/photos/2/img-2500.jpg",
-          sent: false,
-        },
-        {
-          Message: "",
-          image:
-            "https://cdn.photoswipe.com/photoswipe-demo-images/photos/2/img-2500.jpg",
-          sent: false,
-        },
-        {
-          Message: "",
-          image:
-            "https://cdn.photoswipe.com/photoswipe-demo-images/photos/2/img-2500.jpg",
-          sent: false,
-        },
-        {
-          Message: "",
-          image:
-            "https://cdn.photoswipe.com/photoswipe-demo-images/photos/2/img-2500.jpg",
-          sent: false,
-        },
-        {
-          Message: "",
-          image:
-            "https://cdn.photoswipe.com/photoswipe-demo-images/photos/2/img-2500.jpg",
-          sent: false,
-        },
-        {
-          Message: "",
-          image:
-            "https://cdn.photoswipe.com/photoswipe-demo-images/photos/2/img-2500.jpg",
-          sent: false,
-        },
-        {
-          Message: "",
-          image:
-            "https://cdn.photoswipe.com/photoswipe-demo-images/photos/2/img-2500.jpg",
-          sent: false,
-        },
-        {
-          Message: "",
-          image:
-            "https://cdn.photoswipe.com/photoswipe-demo-images/photos/2/img-2500.jpg",
-          sent: false,
-        },
-        {
-          Message: "",
-          image:
-            "https://cdn.photoswipe.com/photoswipe-demo-images/photos/2/img-2500.jpg",
-          sent: false,
-        },
-        {
-          Message: "",
-          image:
-            "https://cdn.photoswipe.com/photoswipe-demo-images/photos/2/img-2500.jpg",
-          sent: false,
-        },
-        // Add more image URLs here
-      ],
-      messageState: "idle", // Use a state indicator
-    };
-  },
+  setup() {
+    const appState = inject('appState');
+    const changeAppState = inject('changeAppState');
 
-  computed: {
-    filteredItems() {
-      // This computed property will automatically update when items' 'sent' status changes
-      return this.items.filter((item) => !item.sent);
-    },
-    isMessageActive() {
-      // Compute based on appState to determine if messages can be sent
-      return this.appState.status === "01-START";
-    },
-  },
+    const showOverlay = ref(false);
+    const selectedImage = ref('');
+    const items = ref([
+      {
+        Message: "",
+        image: "https://cdn.photoswipe.com/photoswipe-demo-images/photos/2/img-2500.jpg",
+        sent: false,
+      },
+      {
+        Message: "01-FOUNDPHOTO",
+        image: "https://cdn.photoswipe.com/photoswipe-demo-images/photos/1/img-2500.jpg",
+        sent: false,
+      },
+      // Add more items as needed
+    ]);
 
-  methods: {
-    navigateToPage(routeName) {
+    function navigateToPage(routeName) {
       this.$router.push({ name: routeName });
-    },
+    }
 
-    sendMsg(item) {
-      if (this.isMessageActive && item.Message === "01-FOUNDPHOTO") {
+
+    function sendMsg(item) {
+      if (appState.value.status === "01-START" && item.Message) {
         console.log("Sending message...", item.Message);
-        connection.send(item.Message); // Send the message
-
-        this.changeAppState("finished"); // Notify `App.vue` to change the global state
+        connection.send(item.Message);
+        changeAppState("finished");
       }
-    },
+    }
 
-    showImage(item) {
-      this.selectedImage = item.image;
-      this.showOverlay = true;
+    function showImage(item) {
+      selectedImage.value = item.image;
+      showOverlay.value = true;
 
-      if (item.Message && this.isMessageActive) {
-        this.sendMsg(item);
+      if (item.Message && appState.value.status === "01-START") {
+        sendMsg(item);
       }
+    }
 
-      console.log("Overlay should be shown:", this.showOverlay);
-    },
-    startTimer() {
+    function startTimer() {
       setTimeout(() => {
         this.sendMsg("02-ALBUM");
       }, 10000);
@@ -173,20 +86,36 @@ export default {
     // Watch for changes in appState and react accordingly
     "appState.status"(newStatus) {
       if (newStatus === "01-FINISH") {
-        // When message is "finished", mark the special item as sent
-        this.items.forEach((item) => {
+        items.value.forEach((item) => {
           if (item.Message === "01-FOUNDPHOTO") {
             item.sent = true;
           }
         });
+      } else if (newStatus === "02-START") {
+        startTimer();
       }
-      if (newStatus === "02-START") {
-        this.startTimer();
+    });
+
+    onMounted(() => {
+      if (appState.value.status === "02-START") {
+        startTimer();
       }
-    },
-  },
+    });
+
+    return {
+      route: 'game1_main',
+      items,
+      showOverlay,
+      selectedImage,
+      navigateToPage,
+      sendMsg,
+      showImage,
+      startTimer
+    };
+  }
 };
 </script>
+
 
 <style scoped>
 .photo {
