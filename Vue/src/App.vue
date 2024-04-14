@@ -12,7 +12,7 @@
 
 <script>
 import { RouterLink,RouterView } from "vue-router";
-import { defineComponent, ref, onMounted, onUnmounted, provide } from "vue";
+import { defineComponent, ref, onMounted, onUnmounted, provide, reactive } from "vue";
 import connection from "@/plugins/connection"; // Adjust path as necessary
 
 export default defineComponent({
