@@ -103,6 +103,7 @@ export default {
     });
 
     return {
+      route: 'game1_main',
       items,
       showOverlay,
       selectedImage,
@@ -111,7 +112,15 @@ export default {
       showImage,
       startTimer
     };
-  }
+  },
+  methods: {
+    flipListener(e) {
+      console.log(page);
+    },
+    navigateToPage(routeName) {
+      this.$router.push({ name: routeName });
+    }
+  },
 };
 </script>
 

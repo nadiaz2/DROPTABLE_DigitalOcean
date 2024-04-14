@@ -1,17 +1,17 @@
-import { RouterLink, RouterView } from 'vue-router'
+
 
 <template>
-  <div>
-    <RouterView
-      :key="$route.fullPath"
-      :appState="appState"
-      @change-state="changeAppState"
-    />
-  </div>
+
+  <RouterView :key="$route.fullPath" />
+
+
+
+
+
 </template>
 
 <script>
-import { RouterView } from "vue-router";
+import { RouterLink,RouterView } from "vue-router";
 import { defineComponent, ref, onMounted, onUnmounted, provide } from "vue";
 import connection from "@/plugins/connection"; // Adjust path as necessary
 
