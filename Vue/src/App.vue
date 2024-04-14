@@ -21,7 +21,7 @@ export default defineComponent({
     const appState = ref("idle");
 
     function changeAppState(newState) {
-      appState.value.status = newState;  // Update the status property
+      appState.status = newState;  // Update the status property
       console.log(`State updated to: ${newState}`);
     }
 
