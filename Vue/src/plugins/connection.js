@@ -100,6 +100,8 @@ function handleNegotiationNeededEvent(peerID) {
 	}).catch(e => console.log(e))
 }
 
+let receivedMessages = []
+
 // Receive from Unity
 // RTCDataChannel event handlers
 function handleChannelMessage(event) {
@@ -107,8 +109,13 @@ function handleChannelMessage(event) {
 
 	_channel.send(`(ACK)${event.data}`)
 
+	receivedMessages.push(event.data)
+
 	if (typeof (connection.onUnityMessage) == 'function') {
-		connection.onUnityMessage(event.data)
+		receivedMessages.forEach((msg) => {
+			connection.onUnityMessage(msg)
+		})
+		receivedMessages = []
 	}
 }
 
