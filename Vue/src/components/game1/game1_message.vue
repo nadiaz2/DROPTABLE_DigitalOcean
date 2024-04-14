@@ -17,7 +17,7 @@
           <v-list-item
             v-for="(message, index) in messages"
             :key="index"
-            @click="selectMessage(message)"
+            @click="selectMessage(message, appState)"
           >
             <v-list-item-content>
               <v-list-item-title v-html="message.title"></v-list-item-title>
@@ -81,9 +81,9 @@ export default {
       // More messages...
     ];
 
-    //const appState = inject("appState"); // Injecting the app state
+    const appState = inject("appState"); // Injecting the app state
 
-    return { messages, route: 'game1_main'};
+    return { messages, appState, route: 'game1_main'};
   },
   methods: {
     flipListener(e) {
@@ -92,8 +92,7 @@ export default {
     navigateToPage(routeName) {
       this.$router.push({ name: routeName });
     },
-    selectMessage(message) {
-      const appState = inject("appState");
+    selectMessage(message, appState) {
       if (appState.status === "02-START" && message.message) {
         console.log("Status is START. Sending message:", message.message);
         connection.send(message.message); // Send the message using connection.send
