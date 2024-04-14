@@ -12,12 +12,7 @@
 
     <v-container class="photo">
       <v-row>
-        <v-col
-          v-for="(item, index) in items"
-          :key="index"
-          cols="4"
-          class="no-padding"
-        >
+        <v-col v-for="(item, index) in items" :key="index" cols="4" class="no-padding">
           <div @click="showImage(item)" class="image-container cursor-pointer">
             <v-img :src="item.image" aspect-ratio="1" cover></v-img>
           </div>
@@ -125,6 +120,12 @@ export default {
       ],
       messageState: "idle", // Use a state indicator
     };
+  },
+
+  mounted() {
+    if (this.appState === "02-START") {
+      this.startTimer();
+    }
   },
 
   computed: {
