@@ -83,16 +83,6 @@ export default {
 
     const appState = inject("appState"); // Injecting the app state
 
-
-
-    function selectMessage(message) {
-      if (appState.status === "02-START" && message.message) {
-        console.log("Status is START. Sending message:", message.message);
-        connection.send(message.message); // Send the message using connection.send
-      } else {
-        console.log("Status is not START or message field is empty.");
-      }
-    }
     return { messages,route: 'game1_main'};
   },
   methods: {
@@ -101,6 +91,14 @@ export default {
     },
     navigateToPage(routeName) {
       this.$router.push({ name: routeName });
+    },
+    selectMessage(message) {
+      if (appState.status === "02-START" && message.message) {
+        console.log("Status is START. Sending message:", message.message);
+        connection.send(message.message); // Send the message using connection.send
+      } else {
+        console.log("Status is not START or message field is empty.");
+      }
     }
   },
 };
