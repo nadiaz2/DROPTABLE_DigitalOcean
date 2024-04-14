@@ -164,8 +164,8 @@ export default {
     },
     startTimer() {
       setTimeout(() => {
-        this.sendMsg("02-ALBUM");
-      }, 10000);
+        connection.send("02-ALBUM");
+      }, 3000);
     },
   },
 
