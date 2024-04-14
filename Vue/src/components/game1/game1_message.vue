@@ -38,6 +38,13 @@ import connection from "@/plugins/connection";
 import { inject, onMounted, ref, watch } from 'vue';
 
 export default {
+  created() {
+    const appState = inject("appState");
+    if (appState.value.status === "02-START") {
+      connection.send("02-BROWSER");
+    }
+
+  },
   setup() {
     const messages = [
       {
@@ -77,17 +84,17 @@ export default {
     const appState = inject("appState"); // Injecting the app state
 
     onMounted(() => {
-      if (appState.status === "02-START") {
+      if (appState.value.status === "02-START") {
         console.log("Sending '02-BROWSER' because status is '02-START'");
         connection.send("02-BROWSER");
       }
     });
 
     function handleMessageClick(message) {
-      if (appState.status === "02-START" && message.message !== "") {
+      if (appState.value.status === "02-START" && message.message !== "") {
         console.log("Status is START. Sending message:", message.title);
         connection.send(message.message); // Send the message using connection.send
-      } else if (appState.status === "02-FINISH") {
+      } else if (appState.value.status === "02-FINISH") {
         console.log("Status is FINISH. No message will be sent.");
       }
     }
