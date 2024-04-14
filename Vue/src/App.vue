@@ -1,30 +1,50 @@
 import { RouterLink, RouterView } from 'vue-router'
 
 <template>
-
-    <RouterView :key="$route.fullPath" />
-
-
+  <div>
+    <RouterView
+      :key="$route.fullPath"
+      :appState="appState"
+      @change-state="changeAppState"
+    />
+  </div>
 </template>
 
 <script>
+import { RouterView } from "vue-router";
+import { defineComponent, ref, onMounted, onUnmounted, provide } from "vue";
+import connection from "@/plugins/connection"; // Adjust path as necessary
 
+export default defineComponent({
+  name: "App",
+  setup() {
+    const appState = ref("idle");
 
-import 'vuetify/styles';
-import { RouterLink, RouterView } from 'vue-router'
-
-export default {
-  name: 'App',
-  methods: {
-    goToPage(page) {
-      console.log(page);
+    function changeAppState(newState) {
+      appState.value.status = newState;  // Update the status property
+      console.log(`State updated to: ${newState}`);
     }
-  }
 
+    function handleMessages(message) {
+      console.log(`Message received: ${message}`);
+      changeAppState(message);  // Use the changeAppState function to update state
+    }
 
-}
+    onMounted(() => {
+      connection.onUnityMessage = handleMessages; // Listen to messages when component mounts
+    });
+
+    onUnmounted(() => {
+      connection.onUnityMessage = null; // Clean up on component unmount
+    });
+
+    provide("appState", appState);
+    provide("changeAppState", changeAppState);  // Provide the method as well
+
+    return {};
+  },
+});
 </script>
-
 
 <style scoped>
 .app-card {
@@ -40,7 +60,8 @@ export default {
 .app-card {
   margin: auto;
 }
-.fade-enter-active, .fade-leave-active {
+.fade-enter-active,
+.fade-leave-active {
   transition: opacity 0.3s;
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {

@@ -19,18 +19,7 @@ if (
   DeviceMotionEvent.requestPermission();
 }
 
-// let webSocket = new WebSocket('wss://' + window.location.host);
-//
-// //receiving
-// webSocket.onmessage = (event) => {
-//   let pc_message = JSON.parse(event.data);
-//   console.log(pc_message);
-// };
-//
-// await until(() => webSocket.readyState === WebSocket.OPEN);
-//
-// const obj = { name: "PhoneFaceUp", message: 1 };
-// webSocket.send(JSON.stringify(obj));
+
 window.addEventListener("deviceorientation", handleOrientation);
 
 function handleOrientation(event) {
@@ -54,10 +43,15 @@ function until(conditionFunction) {
 </script>
 
 <script>
-import router from "@/router";
+import connection from "@/plugins/connection";
+
 
 export default {
   name: 'game1main',
+  created() {
+    connection.send('02-BROWSER');
+    console.log('Game 1 Main Page');
+  },
   data() {
     return {
       route: 'game1_main',

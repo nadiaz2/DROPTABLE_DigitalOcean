@@ -1,23 +1,33 @@
 <template>
     <v-app>
-        <v-toolbar color="purple-lighten-1">
-            <v-btn variant="text" icon="mdi-arrow-left" @click="navigateToPage(route)"></v-btn>
-
-            <v-toolbar-title>Inbox</v-toolbar-title>
-
-            <v-spacer></v-spacer>
-
-            <v-btn variant="text" icon="mdi-magnify"></v-btn>
-        </v-toolbar>
-
-        <v-list :items="items" item-props lines="three">
-            <template v-slot:subtitle="{ subtitle }">
-                <div v-html="subtitle"></div>
-            </template>
+      <v-toolbar color="purple lighten-1">
+        <v-btn icon @click="navigateToPage(route)">
+          <v-icon>mdi-arrow-left</v-icon>
+        </v-btn>
+        <v-toolbar-title>Inbox</v-toolbar-title>
+        <v-spacer></v-spacer>
+        <v-btn icon>
+          <v-icon>mdi-magnify</v-icon>
+        </v-btn>
+      </v-toolbar>
+  
+      <v-container>
+        <v-list dense>
+          <v-list-item
+            v-for="item in items"
+            :key="item.title"
+            @click="console.log('Item clicked')">
+            <v-list-item-content>
+              <v-list-item-title>{{ item.title }}</v-list-item-title>
+              <v-list-item-subtitle>{{ item.subtitle }}</v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
         </v-list>
-
+      </v-container>
     </v-app>
-</template>
+  </template>
+  
+  
   
 <script setup>
 if (
@@ -27,18 +37,7 @@ if (
     DeviceMotionEvent.requestPermission();
 }
 
-// let webSocket = new WebSocket('wss://' + window.location.host);
-//
-// //receiving
-// webSocket.onmessage = (event) => {
-//   let pc_message = JSON.parse(event.data);
-//   console.log(pc_message);
-// };
-//
-// await until(() => webSocket.readyState === WebSocket.OPEN);
-//
-// const obj = { name: "PhoneFaceUp", message: 1 };
-// webSocket.send(JSON.stringify(obj));
+
 window.addEventListener("deviceorientation", handleOrientation);
 
 function handleOrientation(event) {
@@ -62,7 +61,7 @@ function until(conditionFunction) {
 </script>
   
 <script>
-import router from "@/router";
+import connection from "@/plugins/connection";
 
 export default {
     name: 'game1main',
