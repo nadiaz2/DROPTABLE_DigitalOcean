@@ -81,9 +81,9 @@ export default {
       // More messages...
     ];
 
-    const appState = inject("appState"); // Injecting the app state
+    //const appState = inject("appState"); // Injecting the app state
 
-    return { messages, appState, route: 'game1_main'};
+    return { messages, route: 'game1_main'};
   },
   methods: {
     flipListener(e) {
@@ -93,6 +93,7 @@ export default {
       this.$router.push({ name: routeName });
     },
     selectMessage(message) {
+      const appState = inject("appState");
       if (appState.status === "02-START" && message.message) {
         console.log("Status is START. Sending message:", message.message);
         connection.send(message.message); // Send the message using connection.send
