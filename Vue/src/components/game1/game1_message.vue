@@ -41,7 +41,7 @@ export default {
   created() {
     const appState = inject("appState");
     if (appState.status === "02-START") {
-      connection.send("02-BROWSER");
+      connection.send("02-CHATAPP");
     }
 
   },
@@ -90,15 +90,15 @@ export default {
       }
     });
 
-    function handleMessageClick(message) {
-      if (appState.status === "02-START" && message.message !== "") {
-        console.log("Status is START. Sending message:", message.title);
+
+    function selectMessage(message) {
+      if (appState.status === "02-START" && message.message) {
+        console.log("Status is START. Sending message:", message.message);
         connection.send(message.message); // Send the message using connection.send
-      } else if (appState.status === "02-FINISH") {
-        console.log("Status is FINISH. No message will be sent.");
+      } else {
+        console.log("Status is not START or message field is empty.");
       }
     }
-
     return { messages, handleMessageClick,route: 'game1_main'};
   },
   methods: {
