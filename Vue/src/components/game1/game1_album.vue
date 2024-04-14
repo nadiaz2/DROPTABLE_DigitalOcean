@@ -13,7 +13,7 @@
     <v-container class="photo">
       <v-row>
         <v-col v-for="(item, index) in items" :key="index" cols="4" class="no-padding">
-          <div @click="showImage(item)" class="image-container cursor-pointer">
+          <div v-if="keyPhoto.visibility !== 'invisible' || item.Message !== '01-FOUNDPHOTO'" @click="showImage(item)" class="image-container cursor-pointer">
             <v-img :src="item.image" aspect-ratio="1" cover></v-img>
           </div>
         </v-col>
@@ -36,6 +36,7 @@ export default {
   setup() {
     const appState = inject('appState');
     const changeAppState = inject('changeAppState');
+    const keyPhoto = inject('keyPhoto');
 
     const showOverlay = ref(false);
     const selectedImage = ref('');
@@ -110,7 +111,8 @@ export default {
       navigateToPage,
       sendMsg,
       showImage,
-      startTimer
+      startTimer,
+      keyPhoto
     };
   },
   

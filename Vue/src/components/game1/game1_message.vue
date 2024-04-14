@@ -83,12 +83,6 @@ export default {
 
     const appState = inject("appState"); // Injecting the app state
 
-    onMounted(() => {
-      if (appState.status === "02-START") {
-        console.log("Sending '02-BROWSER' because status is '02-START'");
-        connection.send("02-BROWSER");
-      }
-    });
 
 
     function selectMessage(message) {
@@ -99,7 +93,7 @@ export default {
         console.log("Status is not START or message field is empty.");
       }
     }
-    return { messages, handleMessageClick,route: 'game1_main'};
+    return { messages,route: 'game1_main'};
   },
   methods: {
     flipListener(e) {

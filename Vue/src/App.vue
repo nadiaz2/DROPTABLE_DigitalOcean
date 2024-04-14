@@ -22,6 +22,10 @@ export default defineComponent({
       status: 'idle'
     });
 
+    const keyPhoto = reactive({
+      visibility: 'show'  // Assuming this controls whether certain photos are visible
+    });
+
     function changeAppState(newState) {
       appState.status = newState;  // Update the status property
       console.log(`State updated to: ${newState}`);
@@ -41,6 +45,7 @@ export default defineComponent({
     });
 
     provide("appState", appState);
+    provide("keyPhoto", keyPhoto);
     provide("changeAppState", changeAppState);  // Provide the method as well
 
     return {};
