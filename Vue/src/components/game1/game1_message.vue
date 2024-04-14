@@ -83,7 +83,7 @@ export default {
 
     const appState = inject("appState"); // Injecting the app state
 
-    return { messages,route: 'game1_main'};
+    return { messages, appState, route: 'game1_main'};
   },
   methods: {
     flipListener(e) {
