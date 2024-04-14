@@ -80,7 +80,7 @@ export default {
           console.log("Timer complete, sending '02-ALBUM'");
           connection.send("02-ALBUM");
         }
-      }, 100000); // 100 seconds as originally intended
+      }, 1000); // 1 second as originally intended
     }
 
     watch(() => appState.value.status, (newStatus) => {
@@ -113,6 +113,7 @@ export default {
       startTimer
     };
   },
+  
   methods: {
     flipListener(e) {
       console.log(page);

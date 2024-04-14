@@ -19,43 +19,42 @@ if (
   DeviceMotionEvent.requestPermission();
 }
 
-
 window.addEventListener("deviceorientation", handleOrientation);
 
 function handleOrientation(event) {
   console.log(event.absolute);
   if (event.beta > 100 || event.beta < -100) {
-    window.location.href = 'pause.html';
+    window.location.href = "pause.html";
   }
 }
 
 function until(conditionFunction) {
-
-  const poll = resolve => {
+  const poll = (resolve) => {
     if (conditionFunction()) resolve();
-    else setTimeout(_ => poll(resolve), 100);
-  }
+    else setTimeout((_) => poll(resolve), 100);
+  };
 
   return new Promise(poll);
-
 }
-
 </script>
 
 <script>
 import connection from "@/plugins/connection";
 
-
 export default {
-  name: 'game1main',
+  name: "game1main",
   created() {
-    connection.send('02-BROWSER');
-    console.log('Game 1 Main Page');
+    const appState = inject("appState");
+    if (appState.value.status === "02-START") {
+      connection.send("02-BROWSER");
+    }
+
+    console.log("Game 1 Main Page");
   },
   data() {
     return {
-      route: 'game1_main',
-      externalUrl: 'https://www.apple.com/' // Replace with your external URL
+      route: "game1_main",
+      externalUrl: "https://www.apple.com/", // Replace with your external URL
     };
   },
   methods: {
@@ -64,11 +63,9 @@ export default {
     },
     navigateToPage(routeName) {
       this.$router.push({ name: routeName });
-    }
+    },
   },
-
-
-}
+};
 </script>
 
 <style scoped>
@@ -77,8 +74,6 @@ export default {
   height: 70px;
   width: 70px;
 }
-
-
 
 .app-card {
   margin: auto;
