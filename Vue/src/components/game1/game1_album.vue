@@ -122,12 +122,6 @@ export default {
     };
   },
 
-  mounted() {
-    if (this.appState === "02-START") {
-      this.startTimer();
-    }
-  },
-
   computed: {
     filteredItems() {
       // This computed property will automatically update when items' 'sent' status changes
