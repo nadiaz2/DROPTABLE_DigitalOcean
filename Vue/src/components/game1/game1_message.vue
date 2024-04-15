@@ -75,7 +75,7 @@ export default {
       {
         title: "Click Me",
         subtitle: "New job opportunity.",
-        message: "02-FOUNDCHAT",
+        message: "02-FINISH",
       },
 
       // More messages...
