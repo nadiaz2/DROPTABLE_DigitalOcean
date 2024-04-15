@@ -29,6 +29,8 @@
 <script>
 import { inject, onMounted, ref, watch } from 'vue';
 import connection from "@/plugins/connection"; // Ensure this is the correct path
+import skirt from '@/assets/Album/Skirt.png';
+import ins from '@/assets/Album/ins.png';
 
 export default {
   name: "game1_album",
@@ -43,7 +45,7 @@ export default {
     const items = ref([
       {
         Message: "",
-        image: require("@/assets/Album/ins.png"),
+        image: skirt,
         sent: false,
       },
       {
@@ -53,12 +55,12 @@ export default {
       },
       {
         Message: "",
-        image: require("@/assets/Album/ins.png"),
+        image: ins,
         sent: false,
       },
       {
         Message: "01-FOUNDPHOTO",
-        image: require("@/assets/Album/Skirt.png"),
+        image: skirt,
         sent: false,
       },
       // Add more items as needed
