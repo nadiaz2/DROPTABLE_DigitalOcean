@@ -132,7 +132,7 @@ export default {
     },
     navigateToPage(routeName) {
       this.$router.push({ name: routeName });
-    }
+    },
   },
 };
 </script>
