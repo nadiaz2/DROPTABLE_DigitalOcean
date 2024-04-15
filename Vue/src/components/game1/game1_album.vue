@@ -43,7 +43,7 @@ export default {
     const items = ref([
       {
         Message: "",
-        image: "https://cdn.photoswipe.com/photoswipe-demo-images/photos/2/img-2500.jpg",
+        image: "../src/assets/Album/ins.png",
         sent: false,
       },
       {
