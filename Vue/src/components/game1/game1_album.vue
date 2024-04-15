@@ -53,12 +53,12 @@ export default {
       },
       {
         Message: "",
-        image: "./src/assets/Album/ins.png",
+        image: "@/assets/Album/ins.png",
         sent: false,
       },
       {
         Message: "01-FOUNDPHOTO",
-        image: "./src/assets/Album/Skirt.png",
+        image: "@/assets/Album/Skirt.png",
         sent: false,
       },
       // Add more items as needed
