@@ -47,8 +47,18 @@ export default {
         sent: false,
       },
       {
-        Message: "01-FOUNDPHOTO",
+        Message: "",
         image: "https://cdn.photoswipe.com/photoswipe-demo-images/photos/1/img-2500.jpg",
+        sent: false,
+      },
+      {
+        Message: "",
+        image: "./src/assets/Album/ins.png",
+        sent: false,
+      },
+      {
+        Message: "01-FOUNDPHOTO",
+        image: "./src/assets/Album/Skirt.png",
         sent: false,
       },
       // Add more items as needed
@@ -115,7 +125,7 @@ export default {
       keyPhoto
     };
   },
-  
+
   methods: {
     flipListener(e) {
       console.log(page);

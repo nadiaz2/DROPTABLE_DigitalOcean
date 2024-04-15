@@ -6,8 +6,10 @@
       </v-btn>
       <v-toolbar-title class="title-size">Browser</v-toolbar-title>
       <v-spacer></v-spacer>
+
     </v-app-bar>
-    This is supposed to be Pornhub
+    <v-img src="../../assets/News.png "></v-img>
+
   </v-app>
 </template>
 

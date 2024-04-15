@@ -72,9 +72,9 @@
 
     </v-app>
 </template>
-  
 
-  
+
+
 <script>
 import router from "@/router";
 
@@ -96,17 +96,17 @@ export default {
 
                 {
                     title: 'Alice',
+                    route: 'contact_alice',
+                },
+                { type: 'divider', inset: true },
+                {
+                    title: 'Tom',
                     route: 'contact_tom',
                 },
                 { type: 'divider', inset: true },
                 {
-                    title: 'Bob',
-                    route: 'contact_tom',
-                },
-                { type: 'divider', inset: true },
-                {
-                    title: 'Chloe',
-                    route: 'contact_tom',
+                    title: 'Morgan',
+                    route: 'contact_morgan',
                 },
                 { type: 'divider', inset: true },
                 {
@@ -147,7 +147,7 @@ export default {
 
 }
 </script>
-  
+
 <style scoped>
 .app-card {
     border-radius: 10px;

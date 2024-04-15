@@ -1,4 +1,4 @@
-<template>
+contact_tom.vue<template>
     <v-toolbar color="cyan-lighten-1">
         <v-btn variant="text" icon="mdi-arrow-left" @click="navigateToPage(route)"></v-btn>
 
@@ -61,11 +61,11 @@ export default {
         return {
             route: 'game1_contact',
             contact: {
-                name: 'Tom',
+                name: 'Morgan',
                 phone: '123-456-7890',
                 email: 'johndoe@example.com',
                 address: '1234 Vue Street, Vuetown, VU',
-              avatar: './src/assets/Contact/c2.png',// Placeholder image URL
+              avatar: './src/assets/Contact/c3.png',// Placeholder image URL
                 birthday: '1990-01-01'
             }
         };
