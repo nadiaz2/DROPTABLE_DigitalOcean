@@ -30,7 +30,7 @@
 
           <v-card-subtitle class="text-center">
             <br />
-            <h1 style="font-size: 40px; color: black">{{ currentContact.name }}</h1>
+            <h1 style="font-size: 40px; color: black">{{ currentContact.title }}</h1>
             <br />
             <p style="font-size: 20px; color: black">{{ currentContact.phone }}</p>
           </v-card-subtitle>

@@ -3,29 +3,44 @@
 </template>
 
 <script>
-import { RouterLink,RouterView } from "vue-router";
-import { defineComponent, ref, onMounted, onUnmounted, provide, reactive } from "vue";
+import { RouterLink, RouterView } from "vue-router";
+import {
+  defineComponent,
+  ref,
+  onMounted,
+  onUnmounted,
+  provide,
+  reactive,
+} from "vue";
 import connection from "@/plugins/connection"; // Adjust path as necessary
 
 export default defineComponent({
   name: "App",
   setup() {
     const appState = reactive({
-      status: 'idle'
+      status: "idle",
     });
 
     const keyPhoto = reactive({
-      visibility: 'show'  // Assuming this controls whether certain photos are visible
+      visibility: "show", // Assuming this controls whether certain photos are visible
     });
 
     function changeAppState(newState) {
-      appState.status = newState;  // Update the status property
+      appState.status = newState; // Update the status property
       console.log(`State updated to: ${newState}`);
     }
 
     function handleMessages(message) {
       console.log(`Message received: ${message}`);
-      changeAppState(message);  // Use the changeAppState function to update state
+      changeAppState(message); // Use the changeAppState function to update state
+
+      if (data.type === "triggerDialog") {
+        toggleDialog(true); // Open the dialog
+      }
+    }
+
+    function toggleDialog(show) {
+      appState.showDialog = show;
     }
 
     onMounted(() => {
@@ -38,9 +53,9 @@ export default defineComponent({
 
     provide("appState", appState);
     provide("keyPhoto", keyPhoto);
-    provide("changeAppState", changeAppState);  // Provide the method as well
+    provide("changeAppState", changeAppState); // Provide the method as well
 
-    return {};
+    return { appState, toggleDialog };
   },
 });
 </script>

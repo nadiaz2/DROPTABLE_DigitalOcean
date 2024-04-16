@@ -5,6 +5,8 @@ const router = createRouter({
   routes: [
     { path: '/', component: () => import('@/components/game1/game1_main.vue') },
     { path: '/pause', name: 'pause', component: () => import('@/components/others/pause.vue') },
+    { path: '/email', name: 'email', component: () => import('@/components/game1/email.vue') },
+
     { path: '/game1_main', name: 'game1_main', component: () => import('@/components/game1/game1_main.vue') },
     { path: '/game1_album/', name: 'game1_album', component: () => import('@/components/game1/game1_album.vue') },
     { path: '/game1_album', name: 'game1_album', component: () => import('@/components/game1/game1_album.vue') },
