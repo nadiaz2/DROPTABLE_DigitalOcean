@@ -5,7 +5,7 @@
         <v-btn @click="navigateToPage(route)">
           <v-icon size="40">mdi-arrow-left</v-icon>
         </v-btn>
-        <v-toolbar-title class="title-size">Album</v-toolbar-title>
+        <v-toolbar-title class="title-size">Album (test version 1)</v-toolbar-title>
         <v-spacer></v-spacer>
       </v-app-bar>
     </v-container>
