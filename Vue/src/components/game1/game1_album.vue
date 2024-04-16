@@ -13,7 +13,7 @@
     <v-container class="photo">
       <v-row>
         <v-col v-for="(item, index) in items" :key="index" cols="4" class="no-padding">
-          <div v-if="appState.status === '01-START' || item.image !== skirt" @click="showImage(item)" class="image-container cursor-pointer">
+          <div v-if="isVisible(item)" @click="showImage(item)" class="image-container cursor-pointer">
             <v-img :src="item.image" aspect-ratio="1" cover></v-img>
           </div>
         </v-col>
@@ -166,6 +166,10 @@ export default {
         connection.send(item.Message);
         changeAppState("finished");
       }
+    }
+
+    function isVisible(item) {
+      return (appState.status === '01-START') || (item.image !== skirt)
     }
 
     function showImage(item) {
