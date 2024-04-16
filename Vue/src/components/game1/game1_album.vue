@@ -13,7 +13,7 @@
     <v-container class="photo">
       <v-row>
         <v-col v-for="(item, index) in items" :key="index" cols="4" class="no-padding">
-          <div v-if="appState.status === '01-START'" @click="showImage(item)" class="image-container cursor-pointer">
+          <div v-if="!(keyPhoto.visibility === 'invisible' && item.sent)" @click="showImage(item)" class="image-container cursor-pointer">
             <v-img :src="item.image" aspect-ratio="1" cover></v-img>
           </div>
         </v-col>
