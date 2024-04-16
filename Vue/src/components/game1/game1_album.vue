@@ -157,7 +157,7 @@ export default {
     ]);
 
     const filteredItems = computed(() => {
-      return items.filtered((item) => {
+      return items.filter((item) => {
         return (appState.status === '01-START') || (item.image !== skirt)
       })
     })
