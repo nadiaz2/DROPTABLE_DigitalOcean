@@ -50,7 +50,7 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="grey darken-1" text @click="dialog = false"
+          <v-btn color="grey darken-1" text @click="showDialog = false"
             >Close</v-btn
           >
         </v-card-actions>

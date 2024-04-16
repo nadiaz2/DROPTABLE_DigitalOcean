@@ -13,7 +13,7 @@
     <v-container class="photo">
       <v-row>
         <v-col v-for="(item, index) in items" :key="index" cols="4" class="no-padding">
-          <div v-if="keyPhoto.visibility !== 'invisible' || item.Message !== '01-FOUNDPHOTO'" @click="showImage(item)" class="image-container cursor-pointer">
+          <div v-if="!(keyPhoto.visibility === 'invisible' && item.sent)" @click="showImage(item)" class="image-container cursor-pointer">
             <v-img :src="item.image" aspect-ratio="1" cover></v-img>
           </div>
         </v-col>
@@ -66,7 +66,7 @@ export default {
       {
         Message: "",
         image: "https://cdn.photoswipe.com/photoswipe-demo-images/photos/1/img-2500.jpg",
-        sent: false,
+        sent: true,
       },
       {
         Message: "",
@@ -187,13 +187,8 @@ export default {
     }
 
     watch(() => appState.status, (newStatus) => {
-      console.log("Status changed to:", newStatus);
       if (newStatus === "01-FINISH") {
-        items.value.forEach((item) => {
-          if (item.Message === "01-FOUNDPHOTO") {
-            item.sent = true;
-          }
-        });
+        keyPhoto.visibility = "invisible";
       } else if (newStatus === "02-START") {
         startTimer();
       }
