@@ -211,6 +211,7 @@ export default {
       selectedImage,
       navigateToPage,
       sendMsg,
+      isVisible,
       showImage,
       startTimer,
       keyPhoto
