@@ -1,4 +1,11 @@
 
+if (
+  DeviceMotionEvent &&
+  typeof DeviceMotionEvent.requestPermission === "function"
+) {
+  DeviceMotionEvent.requestPermission();
+}
+
 window.addEventListener("deviceorientation", handleOrientation);
 
 function handleOrientation(event){
