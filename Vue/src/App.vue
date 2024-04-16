@@ -36,6 +36,7 @@ export default defineComponent({
 
       if (message === "02-DIALOG") {
         toggleDialog(true); // Open the dialog if the message is "02-DIALOG"
+        window.navigator.vibrate([300, 100, 300, 100, 300]);
         console.log("Dialog triggered by '02-DIALOG' message.");
       }
     }

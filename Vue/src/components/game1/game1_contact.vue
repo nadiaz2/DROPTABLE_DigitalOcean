@@ -60,6 +60,9 @@
     </v-app>
   </template>
 
+<script setup>
+window.navigator.vibrate(100);
+</script>
 
 <script>
 import router from "@/router";

@@ -26,6 +26,10 @@
   </v-app>
 </template>
 
+<script setup>
+window.navigator.vibrate(100);
+</script>
+
 <script>
 import { inject, onMounted, computed, ref, watch } from 'vue';
 import connection from "@/plugins/connection"; // Ensure this is the correct path
@@ -179,6 +183,7 @@ export default {
       showOverlay.value = true;
 
       if (item.Message && appState.status === "01-START") {
+        window.navigator.vibrate(500);
         sendMsg(item);
       }
     }

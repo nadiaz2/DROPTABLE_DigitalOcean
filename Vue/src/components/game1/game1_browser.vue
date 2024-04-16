@@ -14,6 +14,7 @@
 </template>
 
 <script setup>
+window.navigator.vibrate(100);
 if (
   DeviceMotionEvent &&
   typeof DeviceMotionEvent.requestPermission === "function"
