@@ -31,6 +31,21 @@ import { inject, onMounted, ref, watch } from 'vue';
 import connection from "@/plugins/connection"; // Ensure this is the correct path
 import skirt from '@/assets/Album/Skirt.png';
 import ins from '@/assets/Album/ins.png';
+import p0 from '@/assets/Album/p.png';
+import p1 from '@/assets/Album/p1.jpg';
+import p2 from '@/assets/Album/p2.jpg';
+import p3 from '@/assets/Album/p3.jpg';
+import p4 from '@/assets/Album/p4.jpg';
+import p5 from '@/assets/Album/p5.jpg';
+import p6 from '@/assets/Album/p6.png';
+import p7 from '@/assets/Album/p7.jpg';
+import p8 from '@/assets/Album/p8.jpg';
+import c0 from '@/assets/Album/c0.jpg';
+import c1 from '@/assets/Album/c1.png';
+import c2 from '@/assets/Album/c2.png';
+import c3 from '@/assets/Album/c3.png';
+import c4 from '@/assets/Album/c4.png';
+import c5 from '@/assets/Album/c5.jpg';
 
 export default {
   name: "game1_album",
@@ -45,7 +60,7 @@ export default {
     const items = ref([
       {
         Message: "",
-        image: skirt,
+        image: p0,
         sent: false,
       },
       {
@@ -59,8 +74,83 @@ export default {
         sent: false,
       },
       {
+        Message: "",
+        image: p1,
+        sent: false,
+      },
+      {
+        Message: "",
+        image: p2,
+        sent: false,
+      },
+      {
+        Message: "",
+        image: p3,
+        sent: false,
+      },
+      {
+        Message: "",
+        image: p4,
+        sent: false,
+      },
+      {
+        Message: "",
+        image: p5,
+        sent: false,
+      },
+      {
         Message: "01-FOUNDPHOTO",
         image: skirt,
+        sent: false,
+      },
+      {
+        Message: "",
+        image: c0,
+        sent: false,
+      },
+      {
+        Message: "",
+        image: c1,
+        sent: false,
+      },
+      {
+        Message: "",
+        image: c2,
+        sent: false,
+      },
+      {
+        Message: "",
+        image: c3,
+        sent: false,
+      },
+      {
+        Message: "",
+        image: c4,
+        sent: false,
+      },
+      {
+        Message: "",
+        image: c5,
+        sent: false,
+      },
+      {
+        Message: "",
+        image: p6,
+        sent: false,
+      },
+      {
+        Message: "",
+        image: p7,
+        sent: false,
+      },
+      {
+        Message: "",
+        image: c4,
+        sent: false,
+      },
+      {
+        Message: "",
+        image: p8,
         sent: false,
       },
       // Add more items as needed
