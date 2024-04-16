@@ -34,8 +34,9 @@ export default defineComponent({
       console.log(`Message received: ${message}`);
       changeAppState(message); // Use the changeAppState function to update state
 
-      if (data.type === "triggerDialog") {
-        toggleDialog(true); // Open the dialog
+      if (message === "02-DIALOG") {
+        toggleDialog(true); // Open the dialog if the message is "02-DIALOG"
+        console.log("Dialog triggered by '02-DIALOG' message.");
       }
     }
 

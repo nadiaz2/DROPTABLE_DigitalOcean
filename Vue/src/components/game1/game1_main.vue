@@ -65,7 +65,7 @@ import { ref, onMounted, onUnmounted, inject } from "vue";
 console.log("Setup function executed"); // This log will be displayed
 
 const currentTime = ref(formatTime(new Date()));
-
+const appState = inject("appState");
 
 function formatTime(date) {
   const hours = String(date.getHours()).padStart(2, "0");
@@ -93,18 +93,6 @@ if (
   DeviceMotionEvent.requestPermission();
 }
 
-// let webSocket = new WebSocket('wss://' + window.location.host);
-//
-// //receiving
-// webSocket.onmessage = (event) => {
-//   let pc_message = JSON.parse(event.data);
-//   console.log(pc_message);
-// };
-//
-// await until(() => webSocket.readyState === WebSocket.OPEN);
-//
-// const obj = { name: "PhoneFaceUp", message: 1 };
-// webSocket.send(JSON.stringify(obj));
 
 window.addEventListener("deviceorientation", handleOrientation);
 
@@ -123,18 +111,32 @@ function until(conditionFunction) {
 
   return new Promise(poll);
 }
+
+watch(
+  () => appState.showDialog,
+  (newVal, oldVal) => {
+    if (oldVal === true && newVal === false) {
+      // Triggered when showDialog changes from true to false
+      connection.send("02-DIALOGCLOSED"); // Replace with your specific message
+    }
+  }
+);
 </script>
 
 <script>
 import batteryImage from "@/assets/Battery.png";
+import { ref, onMounted, onUnmounted, inject, watch} from "vue";
+const appState = inject("appState");
+
+
 
 export default {
   name: "game1_main",
   setup() {
-    const appState = inject('appState');
+    const appState = inject("appState");
 
     return {
-      appState
+      appState,
     };
   },
   data() {
