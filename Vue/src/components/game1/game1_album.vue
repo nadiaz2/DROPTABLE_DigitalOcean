@@ -12,8 +12,8 @@
 
     <v-container class="photo">
       <v-row>
-        <v-col v-for="(item, index) in items" :key="index" cols="4" class="no-padding">
-          <div v-if="isVisible(item)" @click="showImage(item)" class="image-container cursor-pointer">
+        <v-col v-for="(item, index) in items" v-if="isVisible(item)" :key="index" cols="4" class="no-padding">
+          <div @click="showImage(item)" class="image-container cursor-pointer">
             <v-img :src="item.image" aspect-ratio="1" cover></v-img>
           </div>
         </v-col>
