@@ -73,8 +73,8 @@ export default {
         message: "",
       },
       {
-        title: "Click Me",
-        subtitle: "New job opportunity.",
+        title: "Rachel Thomas",
+        subtitle: "Hey, can we meet in your lab so I can ask you a question?",
         message: "02-FINISH",
       },
 
