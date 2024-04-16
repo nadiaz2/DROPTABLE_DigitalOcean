@@ -201,9 +201,9 @@ export default {
         // ... more items ...
       ],
       email: {
-        to: "recipient@example.com",
-        subject: "Upcoming Event",
-        body: "Hello, we are pleased to invite you to our upcoming event. Please let us know if you can attend. Best regards.",
+        to: "BTTom@gmail.com",
+        subject: "Recent Death",
+        body: "Hello, we are sorry to inform you all about the recent death of Rachel Thomas. She was a cherished student and we are sorry to see her pass.",
       },
     };
   },
