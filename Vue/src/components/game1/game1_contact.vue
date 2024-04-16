@@ -6,7 +6,7 @@
         <v-spacer></v-spacer>
         <v-btn variant="text" icon="mdi-magnify"></v-btn>
       </v-toolbar>
-  
+
       <v-list>
         <template v-for="(item, index) in items" :key="index">
           <v-divider v-if="item.type === 'divider'" :inset="item.inset"></v-divider>
@@ -17,7 +17,7 @@
           </v-list-item>
         </template>
       </v-list>
-  
+
       <v-dialog v-model="dialogVisible" max-width="600px">
         <v-card elevation="7" style="height: 500px">
           <v-card-title class="justify-center">
@@ -27,14 +27,14 @@
               </v-avatar>
             </v-row>
           </v-card-title>
-  
+
           <v-card-subtitle class="text-center">
             <br />
             <h1 style="font-size: 40px; color: black">{{ currentContact.name }}</h1>
             <br />
             <p style="font-size: 20px; color: black">{{ currentContact.phone }}</p>
           </v-card-subtitle>
-  
+
           <v-card-text>
             <v-list-item>
               <v-list-item-content>
@@ -59,7 +59,7 @@
       </v-dialog>
     </v-app>
   </template>
-  
+
 
 <script>
 import router from "@/router";
@@ -83,50 +83,50 @@ export default {
         {
           title: "Emily",
           avatar: Emily,
-          phone: "555-1234",
-          email: "alice@example.com",
-          address: "123 Alice Lane, Wonderland, WO",
-          birthday: "1985-04-01",
+          phone: "774-035-1299",
+          email: "superEmily@gmail.com",
+          address: "15 LORING ST, Worcester, MA",
+          birthday: "12/13/1999",
           route: "contact_alice",
         },
         { type: "divider", inset: true },
         {
           title: "Tom",
           avatar: Tom,
-          phone: "555-5678",
-          email: "tom@example.com",
-          address: "456 Tom Road, Tomtown, TT",
-          birthday: "1990-08-15",
+          phone: "774-060-5121",
+          email: "BTTom@gmail.com",
+          address: "10 CLARENCE ST, Worcester, MA",
+          birthday: "12/20/2001",
           route: "contact_tom",
         },
         { type: "divider", inset: true },
         {
           title: "Morgan",
           avatar: Morgan,
-          phone: "555-9876",
-          email: "morgn@example.com",
-          address: "456 Tom Road, Tomtown, TT",
-          birthday: "1990-08-15",
+          phone: "774-022-3477",
+          email: "theMorgan@gmail.com",
+          address: "34 HIGHLAND ST, Worcester, MA",
+          birthday: "02/12/1993",
           route: "contact_tom",
         },
         { type: "divider", inset: true },
         {
           title: "Jacob",
           avatar: Jacob,
-          phone: "555-9876",
-          email: "jacob@example.com",
-          address: "456 Tom Road, Tomtown, TT",
-          birthday: "1990-08-15",
+          phone: "774-972-8267",
+          email: "mYSTERYj@gmail.com",
+          address: "10 CLARENCE ST, Worcester, MA",
+          birthday: "11/09/2001",
           route: "contact_tom",
         },
         { type: "divider", inset: true },
         {
           title: "Rachael",
           avatar: Rachael,
-          phone: "555-9876",
-          email: "jacob@example.com",
-          address: "456 Tom Road, Tomtown, TT",
-          birthday: "1990-08-15",
+          phone: "774-340-3099",
+          email: "rachael77@gmail.com",
+          address: "503 PLANTATION ST, Worcester, MA",
+          birthday: "07/07/2000",
           route: "contact_tom",
         },
       ],
