@@ -61,9 +61,6 @@
 
 <script setup>
 window.navigator.vibrate(100);
-</script>
-
-<script setup>
 import { ref, onMounted, onUnmounted, inject } from "vue";
 import connection from "@/plugins/connection";
 
