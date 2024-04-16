@@ -12,7 +12,7 @@
 
     <v-container class="photo">
       <v-row>
-        <v-col v-for="(item, index) in items" v-if="isVisible(item)" :key="index" cols="4" class="no-padding">
+        <v-col v-for="(item, index) in filteredItems" :key="index" cols="4" class="no-padding">
           <div @click="showImage(item)" class="image-container cursor-pointer">
             <v-img :src="item.image" aspect-ratio="1" cover></v-img>
           </div>
@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import { inject, onMounted, ref, watch } from 'vue';
+import { inject, onMounted, computed, ref, watch } from 'vue';
 import connection from "@/plugins/connection"; // Ensure this is the correct path
 import skirt from '@/assets/Album/Skirt.png';
 import ins from '@/assets/Album/ins.png';
@@ -156,6 +156,12 @@ export default {
       // Add more items as needed
     ]);
 
+    const filteredItems = computed(() => {
+      return items.filtered((item) => {
+        return (appState.status === '01-START') || (item.image !== skirt)
+      })
+    })
+
     function navigateToPage(routeName) {
       this.$router.push({ name: routeName });
     }
@@ -166,10 +172,6 @@ export default {
         connection.send(item.Message);
         changeAppState("finished");
       }
-    }
-
-    function isVisible(item) {
-      return (appState.status === '01-START') || (item.image !== skirt)
     }
 
     function showImage(item) {
@@ -207,11 +209,11 @@ export default {
     return {
       route: 'game1_main',
       items,
+      filteredItems,
       showOverlay,
       selectedImage,
       navigateToPage,
       sendMsg,
-      isVisible,
       showImage,
       startTimer,
       keyPhoto
