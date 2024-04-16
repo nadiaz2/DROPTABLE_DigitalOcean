@@ -61,6 +61,7 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted, inject } from "vue";
+import connection from "@/plugins/connection";
 
 console.log("Setup function executed"); // This log will be displayed
 
