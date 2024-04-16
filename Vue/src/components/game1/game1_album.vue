@@ -26,10 +26,6 @@
   </v-app>
 </template>
 
-<script setup>
-window.navigator.vibrate(100);
-</script>
-
 <script>
 import { inject, onMounted, computed, ref, watch } from 'vue';
 import connection from "@/plugins/connection"; // Ensure this is the correct path
