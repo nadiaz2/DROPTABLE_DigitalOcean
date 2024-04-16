@@ -57,7 +57,7 @@ export default {
 
     const showOverlay = ref(false);
     const selectedImage = ref('');
-    const items = ref([
+    const items = [
       {
         Message: "",
         image: p0,
@@ -154,7 +154,7 @@ export default {
         sent: false,
       },
       // Add more items as needed
-    ]);
+    ];
 
     const filteredItems = computed(() => {
       return items.filter((item) => {
